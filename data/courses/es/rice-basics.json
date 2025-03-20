@@ -1,0 +1,12 @@
+{
+  "id": "rice-basics",
+  "title": "Fundamentos del Arroz",
+  "description": "Domine los fundamentos del cultivo del arroz desde la semilla hasta la cosecha",
+  "lessons": [
+    {
+      "id": "types-of-rice",
+      "title": "Tipos de Arroz",
+      "content": "<div class='prose lg:prose-xl'><h2>Principales Variedades de Arroz</h2><p>El arroz (Oryza sativa) se clasifica principalmente en tres grupos:</p><ul><li><strong>Índica:</strong> Arroz de grano largo, comúnmente cultivado en regiones tropicales. Los ejemplos incluyen Basmati e IR64.</li><li><strong>Japónica:</strong> Arroz de grano corto, adaptado a regiones templadas. Las variedades populares incluyen Calrose y Koshihikari.</li><li><strong>Aromático:</strong> Variedades especiales conocidas por su fragancia distintiva, como el arroz Jazmín.</li></ul></div>"
+    }
+  ]
+}

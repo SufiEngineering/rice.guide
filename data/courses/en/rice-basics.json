@@ -1,0 +1,60 @@
+{
+  "id": "rice-basics",
+  "title": "Rice Basics",
+  "description": "Master the fundamentals of rice cultivation from seed to harvest",
+  "categories": ["fundamentals", "cultivation"],
+  "lessons": [
+    {
+      "id": "types-of-rice",
+      "title": "Types of Rice",
+      "content": "<div class='prose lg:prose-xl'><h2>Major Rice Varieties</h2><p>Rice (Oryza sativa) is primarily classified into three groups:</p><ul><li><strong>Indica:</strong> Long grain rice, commonly grown in tropical regions. Examples include Basmati and IR64.</li><li><strong>Japonica:</strong> Short grain rice, adapted to temperate regions. Popular varieties include Calrose and Koshihikari.</li><li><strong>Aromatic:</strong> Specialty varieties known for distinct fragrance, like Jasmine rice.</li></ul><h3>Key Characteristics</h3><p>Each variety has specific:<ul><li>Grain length and shape</li><li>Amylose content (affecting stickiness)</li><li>Growing season length</li><li>Temperature requirements</li><li>Disease resistance profiles</li></ul></p></div>",
+      "quiz": {
+        "questions": [
+          {
+            "question": "Which rice variety is commonly grown in tropical regions?",
+            "options": ["Indica", "Japonica", "Wild Rice", "Arborio"],
+            "correct": 0
+          },
+          {
+            "question": "What characteristic affects the stickiness of rice?",
+            "options": ["Color", "Amylose content", "Shape", "Size"],
+            "correct": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "growing-conditions",
+      "title": "Growing Conditions",
+      "content": "<div class='prose lg:prose-xl'><h2>Optimal Growing Conditions</h2><p>Successful rice cultivation requires careful management of:</p><h3>Temperature</h3><ul><li>Germination: 20-35°C</li><li>Vegetative Growth: 25-31°C</li><li>Reproductive Phase: 25-30°C</li></ul><h3>Soil Requirements</h3><ul><li>pH: 5.5-6.5</li><li>Texture: Clay loam or silty clay</li><li>Organic matter: > 2%</li></ul><h3>Water Management</h3><p>Different growth stages require specific water depths:<ul><li>Seedling: 2-5 cm</li><li>Vegetative: 5-10 cm</li><li>Reproductive: 10-15 cm</li></ul></p></div>",
+      "quiz": {
+        "questions": [
+          {
+            "question": "What is the optimal temperature range for rice germination?",
+            "options": ["10-15°C", "15-20°C", "20-35°C", "35-40°C"],
+            "correct": 2
+          },
+          {
+            "question": "What is the ideal soil pH range for rice cultivation?",
+            "options": ["4.0-5.0", "5.5-6.5", "7.0-8.0", "8.5-9.0"],
+            "correct": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "planting-techniques",
+      "title": "Planting Techniques",
+      "content": "<div class='prose lg:prose-xl'><h2>Rice Planting Methods</h2><p>Common planting techniques include:</p><ul><li><strong>Direct Seeding:</strong> Seeds are directly sown in the field</li><li><strong>Transplanting:</strong> Seedlings are first grown in nurseries</li><li><strong>Machine Transplanting:</strong> Using mechanical transplanters</li></ul></div>",
+      "quiz": {
+        "questions": [
+          {
+            "question": "Which method involves growing seedlings in nurseries first?",
+            "options": ["Direct Seeding", "Transplanting", "Broadcasting", "Drilling"],
+            "correct": 1
+          }
+        ]
+      }
+    }
+  ]
+}

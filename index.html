@@ -3,266 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rice Guide by Rice Business Solutions</title>
+    <title>Rice.Guide - Learn About Rice Industry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.4.1/dist/typography.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f5f5f5;
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
         }
-
-        .chat-container {
-            width: 100%;
-            max-width: 100%;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .chat-header {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 15px;
-            font-size: 24px;
-            font-weight: bolder;
-            text-align: center;
-        }
-
-        .chat-area {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .message {
-            margin-bottom: 10px;
-        }
-
-        .message.user {
-            text-align: right;
-        }
-
-        .message.user .text {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px;
-            border-radius: 15px;
-            display: inline-block;
-            max-width: 600px;
-        }
-
-        .message.system .text {
-            background-color: #e5e5e5;
-            padding: 10px;
-            border-radius: 15px;
-            display: inline-block;
-            max-width: 600px;
-
-        }
-
-        .chat-input {
-            padding: 10px;
-            border-top: 1px solid #e5e5e5;
-            display: flex;
-            align-items: center;
-            background-color: #ffffff;
-        }
-
-        .chat-input textarea {
-            width: calc(100% - 60px);
-            height: 40px;
-            padding: 10px;
-            border: 1px solid #e5e5e5;
-            border-radius: 15px;
-            resize: none;
-            font-size: 14px;
-        }
-
-        .chat-input button {
-            width: 50px;
-            height: 40px;
-            margin-left: 10px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .chat-input button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    <style>
-        /* Your existing CSS styles */
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-        }
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close-btn:hover,
-        .close-btn:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
-<body>
-    <div class="chat-container">
-        <div class="chat-header">Rice Guide Chat</div>
-        <div class="chat-area" id="chatArea">
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col py-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <img class="h-8 w-8 mr-2" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2334d399'%3E%3Cpath d='M12 2L1 21h22L12 2zm0 3.516L20.297 19H3.703L12 5.516z'/%3E%3C/svg%3E" alt="Logo">
+                            <span class="font-bold text-xl text-gray-800 hover:text-green-600 transition-colors cursor-pointer" onclick="app.showCourses()">Rice.Guide</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div id="progress-status" class="progress-badge"></div>
+                        <div class="nav-controls"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="chat-input">
-            <textarea id="messageInput" placeholder="Type a message..."></textarea>
-            <button id="sendButton">Send</button>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div id="error-messages" class="hidden mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700"></div>
+        
+        <div id="courses-view">
+            <div class="mb-8 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-sm border border-green-100 p-6">
+                <div class="relative w-full">
+                    <input type="text" 
+                           class="w-full bg-white border-2 border-green-200 rounded-lg px-5 py-4 text-lg shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" 
+                           placeholder="Search courses by title or description..." 
+                           id="course-search">
+                </div>
+            </div>
+            
+            <div id="courses-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <div class="col-span-full text-center py-8">
+                    <div class="loading-spinner mx-auto"></div>
+                    <p class="mt-4 text-gray-600">Loading courses...</p>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <!-- Modal for Welcome Message -->
-    <div id="welcomeModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <p>Welcome to the Rice Guide! Your Ultimate Rice Assistant.<br><br>Send a message to start a chat.</p>
+        
+        <div id="lesson-content" class="hidden max-w-4xl mx-auto">
+            <button id="back-button" class="mb-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded transition-colors flex items-center">
+                <span class="mr-2">←</span> Back to Courses
+            </button>
+            <div id="lesson-container"></div>
         </div>
-    </div>
-    <script>
-        document.getElementById('sendButton').addEventListener('click', sendMessage);
-        document.getElementById('messageInput').addEventListener('keypress', function(event) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                sendMessage();
-            }
-        });
+    </main>
 
-        function storeMessage(role, content) {
-            const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-            chatHistory.push({ role, content });
-            localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
-        }
-        // Function to render messages from local storage
-        function renderMessages() {
-            const chatArea = document.getElementById('chatArea');
-            const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-sm">© 2024 Rice.Guide. All rights reserved.</p>
+                </div>
+                <a href="https://rice.limited" class="text-sm text-gray-400">
+                    Powered by Rice Business Solutions
+                </a>
+            </div>
+        </div>
+    </footer>
 
-            if (chatHistory.length === 0) {
-                // No messages in history, show the welcome modal
-                showModal();
-            } else {
-                // Render existing chat history
-                chatHistory.forEach(message => {
-                    const messageElement = document.createElement('div');
-                    messageElement.className = `message ${message.role}`;
-                    messageElement.innerHTML = `<div class="text">${message.content}</div>`;
-                    chatArea.appendChild(messageElement);
-                });
-            }
-            // Scroll to the bottom after rendering
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-
-        function showModal() {
-            const modal = document.getElementById('welcomeModal');
-            modal.style.display = 'block';
-
-            // Close the modal when the user clicks on <span> (x)
-            const closeModal = document.getElementById('closeModal');
-            closeModal.onclick = function() {
-                modal.style.display = 'none';
-                //storeMessage('system', 'Welcome to the chat! How can I assist you today?');
-            };
-
-            // Close the modal when the user clicks anywhere outside of it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                    //storeMessage('system', 'Welcome to the chat! How can I assist you today?');
-                }
-            };
-        }
-
-
-        function sendMessage() {
-            const chatArea = document.getElementById('chatArea');
-            const messageInput = document.getElementById('messageInput');
-            const messageText = messageInput.value.trim();
-
-            if (messageText !== '') {
-                // Add the user's message to the chat area
-                const userMessageElement = document.createElement('div');
-                userMessageElement.className = 'message user';
-                userMessageElement.innerHTML = `<div class="text">${messageText}</div>`;
-                chatArea.appendChild(userMessageElement);
-
-                // Store user's message
-                storeMessage('user', messageText);
-
-                // Clear the input field
-                messageInput.value = '';
-
-                // Send the message history to the Cloudflare Worker
-                const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-
-                fetch('https://rice-guide-api.adilj13.workers.dev/send-message', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ messages: chatHistory }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle server response
-                    const systemMessageElement = document.createElement('div');
-                    systemMessageElement.className = 'message system';
-                    systemMessageElement.innerHTML = `<div class="text">${data.reply}</div>`;
-                    chatArea.appendChild(systemMessageElement);
-
-                    // Store system's message
-                    storeMessage('assistant', data.reply);
-
-                    // Scroll to the bottom
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        }
-        window.onload = function() {
-            renderMessages(); // Load and display chat history
-        };
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>
